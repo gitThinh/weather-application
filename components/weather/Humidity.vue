@@ -21,8 +21,8 @@ const humidityThresholds = [
 const humidity = computed(() => currentWeatherInfo.value?.main?.humidity || 0)
 const humidityStatus = computed(() => {
   const hum = humidity.value;
-  if (!hum || hum > 100) return 'unknown';
+  if (!hum || hum > 100) return 'good';
   const threshold = humidityThresholds.find(t => hum <= t.max);
-  return threshold ? threshold.status : 'unknown';
+  return threshold ? threshold.status : 'good';
 });
 </script>

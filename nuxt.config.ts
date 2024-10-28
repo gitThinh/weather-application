@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/eslint',
     'nuxt-lodash',
+    "@pinia/nuxt",
   ],
   icon: {
     componentName: "NuxtIcon",
