@@ -10,8 +10,8 @@
           <ShareHeaderAndIcon title="Humidity" icon-name="hugeicons:humidity">
             <WeatherHumidity />
           </ShareHeaderAndIcon>
-          <ShareHeaderAndIcon title="Wind" icon-name="hugeicons:fast-wind">
-            <WeatherHumidity />
+          <ShareHeaderAndIcon title="Wind (m/s)" icon-name="hugeicons:fast-wind">
+            <WeatherWind />
           </ShareHeaderAndIcon>
           <ShareHeaderAndIcon title="Precipitation" icon-name="hugeicons:cloud-little-rain">
             <WeatherHumidity />

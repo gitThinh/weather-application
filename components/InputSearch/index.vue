@@ -4,9 +4,9 @@
       <div
         class="relative w-full cursor-default overflow-hidden rounded-lg text-left border shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
       >
-        <input
-          @focus="isOpen = true"
-          @blur="isOpen = false"
+      <input
+      @focusin="isOpen = true"
+      @focusout="closeDropdownWithDelay"
           type="text"
           class="w-full border-none outline-none py-2 pl-3 pr-5 text-sm leading-5 bg-neutral-500 bg-opacity-30 text-neutral-50 focus:ring-0"
           placeholder="search location..."
@@ -37,10 +37,10 @@
               v-for="(recent, index) in recentSelected.slice(0, 5)"
               :key="recent.lat + recent.lon"
             >
-            <!-- @click="handleSelectedLocation(recent)" -->
+              <!-- @click="() => console.log(recent)" -->
               <li
                 class="relative cursor-pointer select-none text-neutral-900 py-2 px-3 rounded-md hover:bg-neutral-50"
-                @click="() => console.log(recent)"
+                @click="handleSelectedLocation(recent)"
               >
                 <p class="truncate w-11/12 font-normal">
                   {{ convertLocation(recent) }}
@@ -131,8 +131,8 @@ let isOpen = ref(false);
 const handleSelectedLocation = (item: SuggestionResulf) => {
   selectedLocation.value = item;
   query.value = item.local_names?.vi ?? item.name;
+  isOpen.value = false;
   saveRecentSuggestion(item);
-  props.selectLocation && props.selectLocation();
 };
 
 const debouncedFetchSuggestions = _.debounce(() => {
@@ -144,4 +144,11 @@ const debouncedFetchSuggestions = _.debounce(() => {
 }, 300);
 
 watch(query, debouncedFetchSuggestions, { immediate: false });
+
+// keep dropdown when blur input
+const closeDropdownWithDelay = () => {
+  setTimeout(() => {
+    props.selectLocation && props.selectLocation();
+  }, 300);
+};
 </script>

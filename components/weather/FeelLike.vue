@@ -1,26 +1,36 @@
 <template>
-    <div class="text-center space-y-2">
-      <p class="font-semibold text-xl">{{ visionStatus }}</p>
-      <ShareMultiProgressBar :total="vision/1000" :ranges="visionThresholds"/>
+  <div class="space-y-3">
+    <div class="mainTemp flex items-center justify-center">
+      <h3 class="text-4xl font-semibold text-info-dark">
+        {{ feelLike }}
+      </h3>
+      <NuxtImg :src="getIconUnit()" class="w-7" />
     </div>
-  </template>
-  
-  <script lang="ts" setup>
-  const { currentWeatherInfo } = useCurrentWeather();
-  
-  // var
-  const visionThresholds = [
-    { max: 5, status: 'Poor Visibility' },
-    { max: 8, status: 'Moderate Visibility' },
-    { max: 10, status: 'Good Visibility' },
-  ];
-  
-  // computed
-  const vision = computed(() => currentWeatherInfo.value?.visibility || 0)
-  const visionStatus = computed(() => {
-    const percent = vision.value/1000;
-    if (!percent || percent > 100) return 'Clear';
-    const threshold = visionThresholds.find(t => percent <= t.max);
-    return threshold ? threshold.status : 'Clear';
-  });
-  </script>
+    <div class="flex justify-around">
+      <div class="flex items-center justify-center">
+        <p class="font-medium text-lg">H: <span class="text-info-dark">{{ maxTemp }}</span></p>
+        <NuxtImg :src="getIconUnit()" class="w-3" />
+      </div>
+      <div class="flex items-center justify-center">
+        <p class="font-medium text-lg">L: <span class="text-info-dark">{{ minTemp }}</span></p>
+        <NuxtImg :src="getIconUnit()" class="w-3" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+const { currentWeatherInfo } = useCurrentWeather();
+const { getIconUnit } = useUnitsTemp();
+
+// computed
+const feelLike = computed(() =>
+  Math.round(currentWeatherInfo.value?.main?.feels_like || 0)
+);
+const maxTemp = computed(() =>
+  Math.round(currentWeatherInfo.value?.main?.temp_max || 0)
+);
+const minTemp = computed(() =>
+  Math.round(currentWeatherInfo.value?.main?.temp_min || 0)
+);
+</script>
