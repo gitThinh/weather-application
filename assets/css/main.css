@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+}
+
+.dark body {
+  background-color: #212529;
+  color: #d6dade;
+}
+
+body {
+  height: 100vh;
+  color: #212529;
+  /* background: #F8F9FA; */
+  background: linear-gradient(130deg, #E4F1FF, #B5D8FF 50%, #E4F1FF);
+}
