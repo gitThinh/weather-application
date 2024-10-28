@@ -16,7 +16,7 @@ export interface SuggestionResulf {
 
 export const useSuggestLocation = () => {
   const suggestions = ref<SuggestionResulf[]>([]);
-  const selectedLocation = useState<SuggestionResulf | null>(
+  const selectedLocation = useState<SuggestionResulf>(
     "selectedLocation",
     () => ({
       lat: 16.068,
@@ -47,10 +47,13 @@ export const useSuggestLocation = () => {
     const storedRecent = localStorage.getItem(APP_CONFIGS.recentSuggestionKey);
     if (storedRecent) {
       recentSelected.value = JSON.parse(storedRecent);
-      
+
       // check recent search
       if (recentSelected.value.length) {
-        selectedLocation.value = recentSelected.value[0];
+        const isSameLocation = checkLocation(recentSelected.value[0], selectedLocation.value || {})
+        if(!isSameLocation) {
+          selectedLocation.value = recentSelected.value[0];
+        }
       }
     }
   }
