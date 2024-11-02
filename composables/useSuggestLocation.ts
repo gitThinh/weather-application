@@ -3,7 +3,7 @@ import { APP_CONFIGS } from "~/config-global";
 import { ref } from "vue";
 import { suggestLocation } from "~/services/api";
 
-export interface SuggestionResulf {
+export interface SuggestionResult {
   lat: number;
   lon: number;
   name: string;
@@ -15,48 +15,27 @@ export interface SuggestionResulf {
 }
 
 export const useSuggestLocation = () => {
-  const suggestions = ref<SuggestionResulf[]>([]);
-  const selectedLocation = useState<SuggestionResulf>(
-    "selectedLocation",
-    () => ({
-      lat: 16.068,
-      lon: 108.212,
-      name: "Da Nang",
-      country: "VN",
-      local_names: {
-        eo: "Danango",
-        ko: "다낭",
-        vi: "Thành phố Đà Nẵng",
-        ja: "ダナン",
-        zh: "峴港",
-        pt: "Da Nang",
-        ru: "Дананг",
-        en: "Da Nang",
-        km: "ដាណាំង",
-      },
-    })
-  );
-  const recentSelected = useState<SuggestionResulf[]>(
+  const weatherStore = useWeatherStore();
+  const suggestions = ref<SuggestionResult[]>([]);
+  const recentSelected = useState<SuggestionResult[]>(
     "recentSelected",
     () => []
   );
   const pending = ref<boolean>(false);
   const error = ref<boolean>(false);
 
-  if (import.meta.client) {
-    const storedRecent = localStorage.getItem(APP_CONFIGS.recentSuggestionKey);
-    if (storedRecent) {
-      recentSelected.value = JSON.parse(storedRecent);
-
-      // check recent search
-      if (recentSelected.value.length) {
-        const isSameLocation = checkLocation(recentSelected.value[0], selectedLocation.value || {})
-        if(!isSameLocation) {
-          selectedLocation.value = recentSelected.value[0];
+  onMounted(() => {
+    if (import.meta.client) {
+      const storedRecent = localStorage.getItem(APP_CONFIGS.recentSuggestionKey);
+      if (storedRecent?.length) {
+        recentSelected.value = JSON.parse(storedRecent);
+        // Đặt selected location từ recentSelected nếu có
+        if (recentSelected.value.length > 0) {
+          weatherStore.setSelectedLocation(recentSelected.value[0]);
         }
       }
     }
-  }
+  });
 
   // call API suggestions
   const fetchSuggestions = async (query: string) => {
@@ -77,7 +56,7 @@ export const useSuggestLocation = () => {
   };
 
   //
-  const saveRecentSuggestion = (suggestion: SuggestionResulf) => {
+  const saveRecentSuggestion = (suggestion: SuggestionResult) => {
     // check duplicate
     if (
       recentSelected.value.some(
@@ -88,7 +67,6 @@ export const useSuggestLocation = () => {
         (item) => item.lat !== suggestion.lat && item.lon !== suggestion.lon
       )
       recentSelected.value.unshift(suggestion);
-      
     } else {
       recentSelected.value.unshift(suggestion);
     }
@@ -111,7 +89,6 @@ export const useSuggestLocation = () => {
   };
 
   return {
-    selectedLocation,
     suggestions,
     recentSelected,
     pending,

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-import type { WeatherDailyResponse, weatherLocationResponse } from '~/types/weatherLocationResponse';
+import type { SuggestionResult } from '~/composables/useSuggestLocation';
+import type { weatherLocationResponse } from '~/types/weatherLocationResponse';
 
 export const useWeatherStore = defineStore('weather', {
   state: () => ({
@@ -20,22 +21,19 @@ export const useWeatherStore = defineStore('weather', {
           en: "Da Nang",
           km: "ដាណាំង",
         },
-      } as SuggestionResulf,
-    currentWeather: null as weatherLocationResponse | null,
-    dailyWeather: null as WeatherDailyResponse | null,
+      } as SuggestionResult,
+    currentWeatherInfo: null as weatherLocationResponse | null,
   }),
   actions: {
     setUnit(newUnit: 'metric' | 'imperial') {
       this.unit = newUnit;
     },
-    setSelectedLocation(location: SuggestionResulf) {
+    setSelectedLocation(location: SuggestionResult) {
       this.selectedLocation = location;
     },
-    setCurrentWeather(weather: weatherLocationResponse) {
-      this.currentWeather = weather;
-    },
-    setDailyWeather(weather: WeatherDailyResponse) {
-      this.dailyWeather = weather;
+    setCurrentWeatherInfo(weather: weatherLocationResponse | null) {
+      this.currentWeatherInfo = weather;
     },
   },
 });
+

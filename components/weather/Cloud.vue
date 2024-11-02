@@ -6,7 +6,7 @@
   </template>
   
   <script lang="ts" setup>
-  const { currentWeatherInfo } = useCurrentWeather();
+  const weatherStore = useWeatherStore();
   
   // var
   const cloudThresholds = [
@@ -17,7 +17,7 @@
   ];
   
   // computed
-  const cloud = computed(() => currentWeatherInfo.value?.clouds.all || 0)
+  const cloud = computed(() => weatherStore.currentWeatherInfo?.clouds.all || 0)
   const cloudStatus = computed(() => {
     const percent = cloud.value;
     if (!percent || percent > 100) return 'Clear';

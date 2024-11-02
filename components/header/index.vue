@@ -5,8 +5,9 @@
       <HeaderSwitch />
       <div>
         <button
+          aria-label="open-location-input"
           v-if="isShowInputLocation"
-          class="flex rounded-lg bg-neutral-50 cursor-pointer underline"
+          class="flex rounded-lg bg-neutral-50 cursor-pointer"
           @click="handleOpenInputLocation"
         >
           <NuxtIcon
@@ -15,8 +16,9 @@
           />
         </button>
         <button
+          aria-label="close-location-input"
           v-else
-          class="flex rounded-lg bg-neutral-50 cursor-pointer underline"
+          class="flex rounded-lg bg-neutral-50 cursor-pointer"
           @click="handleCloseInputLocation"
         >
           <NuxtIcon name="ic:outline-close" class="w-7 h-7 text-info-dark" />
@@ -25,16 +27,18 @@
     </div>
 
     <!-- input and show location selected -->
-    <div class="w-full flex items-center space-x-5">
+    <div class="w-full flex flex-col items-center justify-center space-x-5 space-y-3">
       <div v-if="isShowInputLocation" class="space-y-5">
         <h1 class="cursor-default text-xl font-medium">
           <NuxtIcon name="bxs:map" class="w-5 h-5 bg-info-dark" />
-          {{ selectedLocation ? convertLocation(selectedLocation) : "" }}
+          {{ weatherStore.selectedLocation ? convertLocation(weatherStore.selectedLocation) : "" }}
         </h1>
-        <!-- time -->
-        <h2 class="text-center text-lg font-medium">{{ timer.getDayMonth() }}</h2>
       </div>
-      <InputSearch v-else :select-location="handleCloseInputLocation" />
+      <InputSearch v-show="!isShowInputLocation" :select-location="handleCloseInputLocation" />
+      <!-- time -->
+      <h2 class="text-lg font-medium">
+          {{ timer.getDayMonth() }}
+        </h2>
     </div>
 
     <!-- sunset and sunrise -->
@@ -52,13 +56,23 @@
     <!-- State current weather -->
     <div class="flex flex-1 flex-col justify-center items-center gap-2">
       <div class="mainTemp flex items-center">
-        <h1  v-if="currentWeatherTemp" class="text-8xl font-semibold text-info-dark">
+        <h1
+          v-if="currentWeatherTemp"
+          class="text-8xl font-semibold text-info-dark"
+        >
           {{ currentWeatherTemp }}
         </h1>
-        <NuxtImg :src="getIconUnit()" class="w-14"/>
+        <NuxtImg :src="getIconUnit()" class="w-14" />
       </div>
-      <NuxtImg :src="currentWeatherIcon" class="w-3/4 aspect-square object-contain" />
-      <ShareFlexibleTextWidth class="font-medium" :text="currentWeatherState?.[0]?.description || ''" :min-size="1.3"/>
+      <NuxtImg
+        :src="currentWeatherIcon"
+        class="w-3/4 aspect-square object-contain"
+      />
+      <ShareFlexibleTextWidth
+        class="font-medium"
+        :text="currentWeatherState?.[0]?.description || ''"
+        :min-size="1.3"
+      />
     </div>
   </div>
 </template>
@@ -71,28 +85,23 @@ const props = defineProps({
   },
 });
 import convertLocation from "~/composables/convert/convertLocation";
-import { useCurrentWeather } from "~/composables/useCurrentWeather";
+
+const weatherStore = useWeatherStore();
 
 const { getIconUnit } = useUnitsTemp();
-const { selectedLocation } = useSuggestLocation();
-const { currentWeatherInfo } = useCurrentWeather();
-const isShowInputLocation = ref(!!selectedLocation);
+const isShowInputLocation = ref(!!weatherStore.selectedLocation);
 
 const getCurrentWeatherIcon = () => {
-  const descWeather = currentWeatherInfo?.value?.weather?.[0]?.description;
-  const iconWeather = currentWeatherInfo?.value?.weather?.[0]?.icon;
+  const descWeather = weatherStore.currentWeatherInfo?.weather?.[0]?.description;
+  const iconWeather = weatherStore.currentWeatherInfo?.weather?.[0]?.icon;
 
   return convertWeathericon(descWeather, iconWeather);
 };
 
 // computed base
-const timer = convertSecondToDate()
-const currentWeatherState = computed(() =>
-  currentWeatherInfo.value?.weather
-);
-const currentWeatherMain = computed(() =>
-  currentWeatherInfo.value?.main
-);
+const timer = convertSecondToDate();
+const currentWeatherState = computed(() => weatherStore.currentWeatherInfo?.weather);
+const currentWeatherMain = computed(() => weatherStore.currentWeatherInfo?.main);
 
 // computed variable
 const currentWeatherIcon = computed(getCurrentWeatherIcon);
@@ -100,10 +109,10 @@ const currentWeatherTemp = computed(() =>
   Math.round(currentWeatherMain?.value?.temp || 0)
 );
 const currentWeatherSunrise = computed(() =>
-  convertSecondToDate(currentWeatherInfo?.value?.sys?.sunrise || 0)
+  convertSecondToDate(weatherStore.currentWeatherInfo?.sys?.sunrise || 0)
 );
 const currentWeatherSunset = computed(() =>
-  convertSecondToDate(currentWeatherInfo?.value?.sys?.sunset || 0)
+  convertSecondToDate(weatherStore.currentWeatherInfo?.sys?.sunset || 0)
 );
 
 // methods

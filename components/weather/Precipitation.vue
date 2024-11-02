@@ -6,7 +6,7 @@
   </template>
   
   <script lang="ts" setup>
-  const { currentWeatherInfo } = useCurrentWeather();
+  const weatherStore = useWeatherStore();
   
   // var
   const windThresholds = [
@@ -18,7 +18,7 @@
   ];
   
   // computed
-  const wind = computed(() => currentWeatherInfo.value?.wind?.speed || 0)
+  const wind = computed(() => weatherStore.currentWeatherInfo?.wind?.speed || 0)
   const windStatus = computed(() => {
     const percent = wind.value/1000;
     if (!percent || percent > 100) return 'Calm';

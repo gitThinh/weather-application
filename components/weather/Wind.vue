@@ -1,12 +1,15 @@
 <template>
     <div class="text-center space-y-2">
-      <p class="font-semibold text-xl">{{ `${wind} m/s ` }}{{ windStatus }}</p>
+      <span class="font-semibold text-xl">
+        {{ `${wind} m/s ` }}
+        <span class="font-semibold text-xl text-nowrap">{{ windStatus }}</span>
+      </span>
       <ShareMultiProgressBar :total="wind" :ranges="windThresholds"/>
     </div>
   </template>
   
   <script lang="ts" setup>
-  const { currentWeatherInfo } = useCurrentWeather();
+ const weatherStore = useWeatherStore();
   
   // var
   const windThresholds = [
@@ -18,9 +21,9 @@
   ];
   
   // computed
-  const wind = computed(() => currentWeatherInfo.value?.wind?.speed || 0)
+  const wind = computed(() => weatherStore.currentWeatherInfo?.wind?.speed || 0)
   const windStatus = computed(() => {
-    const percent = wind.value/1000;
+    const percent = wind.value;
     if (!percent || percent > 100) return 'Calm';
     const threshold = windThresholds.find(t => percent <= t.max);
     return threshold ? threshold.status : 'Calm';

@@ -113,9 +113,11 @@ const props = defineProps({
 });
 import _ from "lodash";
 import convertLocation from "~/composables/convert/convertLocation";
+import type { SuggestionResult } from "~/composables/useSuggestLocation";
+
+const weatherStore = useWeatherStore();
 
 const {
-  selectedLocation,
   suggestions,
   recentSelected,
   pending,
@@ -124,13 +126,12 @@ const {
   deleteRecentSuggestion,
 } = useSuggestLocation();
 
-let selected = ref<SuggestionResulf | null>(null);
+let selected = ref<SuggestionResult | null>(null);
 let query = ref("");
 let isOpen = ref(false);
 
-const handleSelectedLocation = (item: SuggestionResulf) => {
-  selectedLocation.value = item;
-  query.value = item.local_names?.vi ?? item.name;
+const handleSelectedLocation = (item: SuggestionResult) => {
+  weatherStore.setSelectedLocation(item);
   isOpen.value = false;
   saveRecentSuggestion(item);
 };

@@ -31,6 +31,7 @@ export interface weatherSys {
 }
 
 export interface weatherLocationResponse {
+    dt?: number;
     coord: {
         lon: number,
         lat: number,

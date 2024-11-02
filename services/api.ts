@@ -16,7 +16,7 @@ export const currentWeather = (lat: number, lon: number, units: string) => {
 };
 
 export const suggestLocation = (query: string) => {
-  return $fetch<SuggestionResulf[]>(
+  return $fetch<SuggestionResult[]>(
     "https://api.openweathermap.org/geo/1.0/direct",
     {
       params: {
@@ -37,7 +37,7 @@ export const dailyWeather = (lat: number, lon: number, units: string) => {
           lat,
           lon,
           units,
-          cnt: 20,
+          cnt: 32,
           appid: useRuntimeConfig().public.api_key_weather,
         },
       }
