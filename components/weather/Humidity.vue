@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-const { currentWeatherInfo } = useCurrentWeather();
+const weatherStore = useWeatherStore();
 
 // var
 const humidityThresholds = [
@@ -18,7 +18,7 @@ const humidityThresholds = [
 ];
 
 // computed
-const humidity = computed(() => currentWeatherInfo.value?.main?.humidity || 0)
+const humidity = computed(() => weatherStore.currentWeatherInfo?.main?.humidity || 0)
 const humidityStatus = computed(() => {
   const hum = humidity.value;
   if (!hum || hum > 100) return 'good';

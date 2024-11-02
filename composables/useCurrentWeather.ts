@@ -1,21 +1,17 @@
 import { currentWeather } from "~/services/api";
-import type { weatherLocationResponse } from "~/types/weatherLocationResponse";
 
 export const useCurrentWeather = () => {
-  const { selectedLocation } = useSuggestLocation();
-  const { unit } = useUnitsTemp();
-
-  const currentWeatherInfo = useState<weatherLocationResponse | null>("currentWeather", () => (null))
+  const weatherStore = useWeatherStore();
 
   const getCurrentWeather = async () => {
-    const lat = selectedLocation.value?.lat || 16.068;
-    const lon = selectedLocation.value?.lon || 108.212;
-    const units = unit.value;
+    const lat = weatherStore.selectedLocation?.lat || 16.068;
+    const lon = weatherStore.selectedLocation?.lon || 108.212;
+    const units = weatherStore.unit;
     try {
       const data = await currentWeather(lat, lon, units)
-      currentWeatherInfo.value = data;
+      weatherStore.setCurrentWeatherInfo(data);
     } catch (error) {
-      currentWeatherInfo.value = null
+      weatherStore.setCurrentWeatherInfo(null);
       console.error(error);
     }
   }
@@ -23,8 +19,4 @@ export const useCurrentWeather = () => {
   watchEffect(() => {
     getCurrentWeather();
   });
-
-  return {
-    currentWeatherInfo,
-  };
 };

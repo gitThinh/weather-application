@@ -20,17 +20,17 @@
 </template>
 
 <script lang="ts" setup>
-const { currentWeatherInfo } = useCurrentWeather();
 const { getIconUnit } = useUnitsTemp();
+const weatherStore = useWeatherStore();
 
 // computed
 const feelLike = computed(() =>
-  Math.round(currentWeatherInfo.value?.main?.feels_like || 0)
+  Math.round(weatherStore.currentWeatherInfo?.main?.feels_like || 0)
 );
 const maxTemp = computed(() =>
-  Math.round(currentWeatherInfo.value?.main?.temp_max || 0)
+  Math.round(weatherStore.currentWeatherInfo?.main?.temp_max || 0)
 );
 const minTemp = computed(() =>
-  Math.round(currentWeatherInfo.value?.main?.temp_min || 0)
+  Math.round(weatherStore.currentWeatherInfo?.main?.temp_min || 0)
 );
 </script>

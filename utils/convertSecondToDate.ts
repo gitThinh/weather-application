@@ -25,11 +25,16 @@ const converSecondToDate = (time?: number) => {
       ? `${dayOfWeek}, ${day} ${month} ${year}`
       : `${dayOfWeek}, ${day} ${month}`;
   };
+  
+  const getDayNumber = () => {
+    return `${day}/${date.getMonth()}`;
+  };
 
   return {
     date: date,
     formattedTime: timeString,
     getDayMonth,
+    getDayNumber,
   };
 };
 

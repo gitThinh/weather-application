@@ -6,7 +6,7 @@
   </template>
   
   <script lang="ts" setup>
-  const { currentWeatherInfo } = useCurrentWeather();
+  const weatherStore = useWeatherStore();
   
   // var
   const visionThresholds = [
@@ -16,7 +16,7 @@
   ];
   
   // computed
-  const vision = computed(() => currentWeatherInfo.value?.visibility || 0)
+  const vision = computed(() => weatherStore.currentWeatherInfo?.visibility || 0)
   const visionStatus = computed(() => {
     const percent = vision.value/1000;
     if (!percent || percent > 100) return 'Good Visibility';

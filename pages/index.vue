@@ -4,9 +4,15 @@
       <!-- sidebar -->
       <Header class="col-span-3 bg-info-light rounded-2xl mr-1"></Header>
       <!-- dashboard -->
-      <div class="col-span-9 bg-info-light rounded-2xl p-12 h-full flex flex-col justify-between">
-        <WeatherState :data="testData" />
-        <div class="grid grid-cols-3 grid-rows-2 gap-8">
+      <div class="col-span-9 bg-info-light rounded-2xl px-12 py-8 h-full flex flex-col justify-around space-y-6">
+        <!-- <ShareHeaderAndIcon title-style="font-medium text-xl" title="Daily Weather">
+        </ShareHeaderAndIcon> -->
+        <div>
+          <ShareHeaderAndIcon class="bg-white p-4 rounded-3xl gap-3" title-style="font-medium text-xl" title="Daily Weather" icon-name="solar:list-broken">
+            <ShareSliderDailyWeather :number-items="8" />
+          </ShareHeaderAndIcon>
+        </div>
+        <div class="grid grid-cols-3 grid-rows-2 gap-x-8 gap-y-4">
           <ShareHeaderAndIcon title="Humidity" icon-name="hugeicons:humidity">
             <WeatherHumidity />
           </ShareHeaderAndIcon>
@@ -32,18 +38,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { weatherHourData } from "~/components/weather/state.vue";
-
+//seo
 useSeoMeta({
   title: "Home",
 });
 
-const testData: weatherHourData = {
-  hour: "08PM",
-  desc: "broken clouds",
-  icon: "04n",
-  temp: 24.99,
-};
+useCurrentWeather();
 </script>
 
 <style></style>

@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-const { unit, handleChangeUnits } = useUnitsTemp();
+const weatherStore = useWeatherStore();
+const { handleChangeUnits } = useUnitsTemp();
 
 // computed
 const convertUnit = computed({
-  get: () => unit.value === "metric",
+  get: () => weatherStore.unit === "metric",
   set: handleChangeUnits
 })
 </script>
