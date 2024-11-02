@@ -1,6 +1,6 @@
 <template>
   <div class="text-center space-y-2">
-    <p><span class="font-semibold text-xl">{{ `${humidity}% ` }}</span>{{ humidityStatus }}</p>
+    <p class="font-semibold text-xl">{{ `${humidity}% ` }}</p>
     <ShareMultiProgressBar :total="humidity" :ranges="humidityThresholds"/>
   </div>
 </template>
@@ -19,10 +19,4 @@ const humidityThresholds = [
 
 // computed
 const humidity = computed(() => weatherStore.currentWeatherInfo?.main?.humidity || 0)
-const humidityStatus = computed(() => {
-  const hum = humidity.value;
-  if (!hum || hum > 100) return 'good';
-  const threshold = humidityThresholds.find(t => hum <= t.max);
-  return threshold ? threshold.status : 'good';
-});
 </script>

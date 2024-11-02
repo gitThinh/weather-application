@@ -15,8 +15,8 @@
         <span
           v-if="query"
           class="absolute cursor-pointer right-0 top-1/2 -translate-y-1/2 w-4 h-4 hover:bg-neutral-200 rounded-full -translate-x-1/2 z-10 hover:"
+          @click.stop="query = ''"
         >
-          <!-- @click.stop="query = ''" -->
           <NuxtIcon name="ic:outline-close" class="w-4 h-4" />
         </span>
       </div>
@@ -131,6 +131,7 @@ let query = ref("");
 let isOpen = ref(false);
 
 const handleSelectedLocation = (item: SuggestionResult) => {
+  query.value = "";
   weatherStore.setSelectedLocation(item);
   isOpen.value = false;
   saveRecentSuggestion(item);
