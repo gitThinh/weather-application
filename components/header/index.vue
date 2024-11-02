@@ -5,8 +5,9 @@
       <HeaderSwitch />
       <div>
         <button
+          aria-label="open-location-input"
           v-if="isShowInputLocation"
-          class="flex rounded-lg bg-neutral-50 cursor-pointer underline"
+          class="flex rounded-lg bg-neutral-50 cursor-pointer"
           @click="handleOpenInputLocation"
         >
           <NuxtIcon
@@ -15,8 +16,9 @@
           />
         </button>
         <button
+          aria-label="close-location-input"
           v-else
-          class="flex rounded-lg bg-neutral-50 cursor-pointer underline"
+          class="flex rounded-lg bg-neutral-50 cursor-pointer"
           @click="handleCloseInputLocation"
         >
           <NuxtIcon name="ic:outline-close" class="w-7 h-7 text-info-dark" />
