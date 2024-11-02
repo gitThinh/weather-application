@@ -14,7 +14,7 @@
       </div>
     </div>
     <button
-      aria-label="prev time"
+      aria-label="prev-time"
       @click="prevSlide"
       class="absolute top-1/2 transform -translate-y-1/2 bg-info-normal bg-opacity-60 rounded-full left-0 p-2 cursor-pointer"
       :class="currentIndex === 0 && 'hidden'"
@@ -22,7 +22,7 @@
       <NuxtIcon name="grommet-icons:previous" class="h-6 w-6 block" />
     </button>
     <button
-      aria-label="next time"
+      aria-label="next-time"
       @click="nextSlide"
       class="absolute top-1/2 transform -translate-y-1/2 right-0 bg-info-normal bg-opacity-60 p-2 rounded-full cursor-pointer"
       :class="isMaxSlider && 'hidden'"
@@ -56,4 +56,8 @@ function prevSlide() {
   currentIndex.value =
     (currentIndex.value - 1 + (items.value.length - props.numberItems)) % (items.value.length - props.numberItems);
 }
+
+watch(items, () => {
+  currentIndex.value = 0;
+});
 </script>
