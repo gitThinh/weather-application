@@ -27,18 +27,18 @@
     </div>
 
     <!-- input and show location selected -->
-    <div class="w-full flex items-center space-x-5">
+    <div class="w-full flex flex-col items-center justify-center space-x-5 space-y-3">
       <div v-if="isShowInputLocation" class="space-y-5">
         <h1 class="cursor-default text-xl font-medium">
           <NuxtIcon name="bxs:map" class="w-5 h-5 bg-info-dark" />
           {{ weatherStore.selectedLocation ? convertLocation(weatherStore.selectedLocation) : "" }}
         </h1>
-        <!-- time -->
-        <h2 class="text-center text-lg font-medium">
-          {{ timer.getDayMonth() }}
-        </h2>
       </div>
       <InputSearch v-show="!isShowInputLocation" :select-location="handleCloseInputLocation" />
+      <!-- time -->
+      <h2 class="text-lg font-medium">
+          {{ timer.getDayMonth() }}
+        </h2>
     </div>
 
     <!-- sunset and sunrise -->
