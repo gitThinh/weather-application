@@ -1,17 +1,17 @@
 <template>
   <NuxtLayout name="default-layout">
     <div
-      class="w-full h-screen grid grid-cols-12 container overflow-hidden mx-auto"
+      class="hidden sm:grid w-full h-screen grid-cols-12 container overflow-hidden mx-auto"
     >
       <!-- sidebar -->
       <Header class="col-span-3 bg-info-light rounded-2xl mr-1"></Header>
       <!-- dashboard -->
       <div
-        class="col-span-9 bg-info-light rounded-2xl px-12 py-8 h-full flex flex-col justify-around space-y-6"
+        class="col-span-9 bg-info-light rounded-2xl px-12 py-8 h-full flex flex-col justify-around 2xl:justify-start space-y-6 overflow-y-auto"
       >
         <!-- <ShareHeaderAndIcon title-style="font-medium text-xl" title="Daily Weather">
         </ShareHeaderAndIcon> -->
-        <div>
+        <div class="hidden md:block">
           <ShareHeaderAndIcon
             class="bg-white p-4 rounded-3xl gap-3"
             title-style="font-medium text-xl"
@@ -21,7 +21,7 @@
             <ShareSliderDailyWeather :number-items="8" />
           </ShareHeaderAndIcon>
         </div>
-        <div class="grid grid-cols-3 grid-rows-2 gap-x-8 gap-y-4">
+        <div class="grid  xl:grid-cols-3 sm:grid-cols-2 gap-x-8 gap-y-4">
           <ShareHeaderAndIcon title="Humidity" icon-name="hugeicons:humidity">
             <WeatherHumidity />
           </ShareHeaderAndIcon>
@@ -32,10 +32,10 @@
             <WeatherWind />
           </ShareHeaderAndIcon>
           <ShareHeaderAndIcon
-            title="Precipitation"
+            title="Precipitation (mm/h)"
             icon-name="hugeicons:cloud-little-rain"
           >
-            <WeatherHumidity />
+            <WeatherPrecipitation />
           </ShareHeaderAndIcon>
           <ShareHeaderAndIcon title="Cloud" icon-name="hugeicons:cloud">
             <WeatherCloud />
@@ -52,10 +52,12 @@
         </div>
       </div>
     </div>
+    <MobileMainMobile />
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
+
 //seo
 useSeoMeta({
   title: "Home",
