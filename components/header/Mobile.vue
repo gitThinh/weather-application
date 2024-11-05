@@ -66,7 +66,7 @@
         </div>
         <NuxtImg
           :src="currentWeatherIcon"
-          class="min-w-[50%] object-contain"
+          class="w-2/3 object-contain"
         />
         <ShareFlexibleTextWidth
           class="font-medium"
