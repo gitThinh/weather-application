@@ -149,7 +149,7 @@ const weatherStore = useWeatherStore();
 const { getIconUnit } = useUnitsTemp();
 const isShowInputLocation = ref(!!weatherStore.selectedLocation);
 
-const windowWidth = ref(window.innerWidth);
+const windowWidth = ref(window?.innerWidth);
 
 // Function to update windowWidth on resize
 const updateWidth = () => {
