@@ -8,7 +8,7 @@
         v-for="(item, index) in items" 
         :key="index" 
         :style="{ flex: `0 0 calc(100% / ${numberItems})` }"
-        class="p-4"
+        class="p-1 md:p-2 xl:p-3"
       >
         <WeatherState :data="item" class="bg-info-light border-info-normal h-full"/>
       </div>

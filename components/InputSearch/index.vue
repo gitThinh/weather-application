@@ -17,7 +17,7 @@
           class="absolute cursor-pointer right-0 top-1/2 -translate-y-1/2 w-4 h-4 hover:bg-neutral-200 rounded-full -translate-x-1/2 z-10 hover:"
           @click.stop="query = ''"
         >
-          <NuxtIcon name="ic:outline-close" class="w-4 h-4" />
+          <NuxtIcon name="ic:outline-close" class="w-4 h-4 block" />
         </span>
       </div>
       <HeadlessTransitionRoot
@@ -49,7 +49,7 @@
                   class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 hover:bg-neutral-200 rounded-full -translate-x-1/2 z-10 hover:"
                   @click.stop="deleteRecentSuggestion(index)"
                 >
-                  <NuxtIcon name="ic:outline-close" class="w-4 h-4" />
+                  <NuxtIcon name="ic:outline-close" class="w-4 h-4 block" />
                 </span>
               </li>
             </ul>
