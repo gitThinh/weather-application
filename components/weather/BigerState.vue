@@ -25,7 +25,7 @@
         <NuxtImg
           :src="iconWeather"
           alt=""
-          class="w-2/3 object-contain mx-auto"
+          class="w-2/3 max-w-40 object-contain mx-auto"
         />
         <p class="text-lg font-medium">{{ statusWeather }}</p>
       </div>

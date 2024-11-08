@@ -13,10 +13,10 @@
 } */
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   color: #212529;
-  /* background: #F8F9FA; */
   background: linear-gradient(130deg, #E4F1FF, #B5D8FF 50%, #E4F1FF);
+  background-size: cover;
 }
 
 .bottom_shadow {

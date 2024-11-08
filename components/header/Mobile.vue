@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col p-4 space-y-5 h-full" :class="props.class">
+    <div class="flex flex-col p-4 space-y-5 min-h-screen" :class="props.class">
       <!-- control unit and choose location -->
       <div class="flex justify-between items-center">
         <HeaderSwitch />

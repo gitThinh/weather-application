@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout name="default-layout">
     <div
-      class="hidden sm:grid w-full h-screen grid-cols-12 container overflow-hidden mx-auto"
+      class="hidden lg:grid w-full min-h-screen grid-cols-12 container overflow-hidden mx-auto"
     >
       <!-- sidebar -->
       <Header class="col-span-3 bg-info-light rounded-2xl mr-1"></Header>
@@ -53,6 +53,7 @@
       </div>
     </div>
     <MobileMainMobile />
+    <TabletMainTablet />
   </NuxtLayout>
 </template>
 
