@@ -27,13 +27,14 @@
           alt=""
           class="w-2/3 max-w-40 object-contain mx-auto"
         />
-        <p class="text-lg font-medium">{{ statusWeather }}</p>
+        <p class="text-lg font-medium">{{ t(`state.${stringToCamelCase(statusWeather)}`) || statusWeather }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+const {t} = useI18n();
 import type { weatherLocationResponse } from "~/types/weatherLocationResponse";
 import converSecondToDate from "~/utils/convertSecondToDate";
 

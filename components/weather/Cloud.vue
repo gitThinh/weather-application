@@ -6,8 +6,8 @@
   </template>
   
   <script lang="ts" setup>
-  const weatherStore = useWeatherStore();
   const {t} = useI18n();
+  const weatherStore = useWeatherStore();
   
   // var
   const cloudThresholds = [

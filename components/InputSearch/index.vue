@@ -105,6 +105,7 @@
 </template>
 
 <script lang="ts" setup>
+const {t} = useI18n();
 const props = defineProps({
   selectLocation: {
     type: Function,
@@ -115,7 +116,6 @@ import _ from "lodash";
 import convertLocation from "~/composables/convert/convertLocation";
 import type { SuggestionResult } from "~/composables/useSuggestLocation";
 
-const {t} = useI18n();
 const weatherStore = useWeatherStore();
 
 const {
