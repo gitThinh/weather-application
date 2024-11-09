@@ -70,13 +70,13 @@
         />
         <ShareFlexibleTextWidth
           class="font-medium"
-          :text="currentWeatherState?.[0]?.description || ''"
+          :text="t(`state.${stringToCamelCase(currentWeatherState?.[0]?.description)}`) || ''"
           :min-size="1.3"
         />
       </div>
 
       <div class="w-full flex justify-between">
-        <MobileShowTabMobile title="More detail" />
+        <MobileShowTabMobile :title="t('moreDetail')" />
       </div>
     </div>
   </template>
@@ -89,6 +89,8 @@
     },
   });
   import convertLocation from "~/composables/convert/convertLocation";
+
+  const {t} = useI18n();
   
   const weatherStore = useWeatherStore();
   

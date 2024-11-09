@@ -84,7 +84,7 @@
         <NuxtImg :src="currentWeatherIcon" class="w-2/3 max-w-xs object-contain" />
         <ShareFlexibleTextWidth
           class="font-medium"
-          :text="currentWeatherState?.[0]?.description || ''"
+          :text="t(`state.${stringToCamelCase(currentWeatherState?.[0]?.description)}`) || ''"
           :min-size="1.3"
         />
       </div>
@@ -95,7 +95,7 @@
       <ShareHeaderAndIcon
         class="h-max bg-white p-4 rounded-3xl gap-3"
         title-style="font-medium text-xl"
-        title="Daily Weather (3 days)"
+        :title="`${t('dailyWeather')} (3 ${t('days')})`"
         icon-name="solar:list-broken"
       >
         <ShareSliderDailyWeather :number-items="sliderNumber" />
@@ -103,33 +103,33 @@
       
       <!-- more detail weather -->
       <div class="grid xl:grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-x-8 md:gap-4 gap-y-4">
-        <ShareHeaderAndIcon title="Humidity" icon-name="hugeicons:humidity">
-          <WeatherHumidity />
-        </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon
-          title="Wind (m/s)"
-          icon-name="hugeicons:fast-wind"
-        >
-          <WeatherWind />
-        </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon
-          title="Precipitation (mm/h)"
-          icon-name="hugeicons:cloud-little-rain"
-        >
-          <WeatherPrecipitation />
-        </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon title="Cloud" icon-name="hugeicons:cloud">
-          <WeatherCloud />
-        </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon
-          title="Feels like"
-          icon-name="hugeicons:temperature"
-        >
-          <WeatherFeelLike />
-        </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon title="Visibility" icon-name="hugeicons:vision">
-          <WeatherVisibility />
-        </ShareHeaderAndIcon>
+        <ShareHeaderAndIcon :title="t('humidity')" icon-name="hugeicons:humidity">
+            <WeatherHumidity />
+          </ShareHeaderAndIcon>
+          <ShareHeaderAndIcon
+            :title="`${t('wind.root')} (m/s)`"
+            icon-name="hugeicons:fast-wind"
+          >
+            <WeatherWind />
+          </ShareHeaderAndIcon>
+          <ShareHeaderAndIcon
+            :title="`${t('precipitation.root')} (mm/h)`"
+            icon-name="hugeicons:cloud-little-rain"
+          >
+            <WeatherPrecipitation />
+          </ShareHeaderAndIcon>
+          <ShareHeaderAndIcon :title="t('cloud.root')" icon-name="hugeicons:cloud">
+            <WeatherCloud />
+          </ShareHeaderAndIcon>
+          <ShareHeaderAndIcon
+            :title="t('feelsLike')"
+            icon-name="hugeicons:temperature"
+          >
+            <WeatherFeelLike />
+          </ShareHeaderAndIcon>
+          <ShareHeaderAndIcon :title="t('visibility.root')" icon-name="hugeicons:vision">
+            <WeatherVisibility />
+          </ShareHeaderAndIcon>
       </div>
     </div>
   </div>
@@ -143,6 +143,8 @@ const props = defineProps({
   },
 });
 import convertLocation from "~/composables/convert/convertLocation";
+
+const {t} = useI18n();
 
 const weatherStore = useWeatherStore();
 

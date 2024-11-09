@@ -21,14 +21,30 @@
           <HeadlessTabGroup>
             <HeadlessTabList class="w-full flex justify-around">
               <HeadlessTab as="template" v-slot="{ selected }">
-                <p :class="{ 'font-medium cursor-default bottom_shadow': selected, 'cursor-pointer': !selected }">More detail</p>
+                <p
+                  :class="{
+                    'font-medium cursor-default bottom_shadow': selected,
+                    'cursor-pointer': !selected,
+                  }"
+                >
+                  {{ t("moreDetail") }}
+                </p>
               </HeadlessTab>
               <HeadlessTab as="template" v-slot="{ selected }">
-                <p :class="{ 'font-medium cursor-default bottom_shadow': selected, 'cursor-pointer': !selected }">Daily Weather</p>
+                <p
+                  :class="{
+                    'font-medium cursor-default bottom_shadow': selected,
+                    'cursor-pointer': !selected,
+                  }"
+                >
+                  {{ t("dailyWeather") }}
+                </p>
               </HeadlessTab>
             </HeadlessTabList>
 
-            <HeadlessTabPanels class="mt-4 flex-1 overflow-y-auto overscroll-contain px-4">
+            <HeadlessTabPanels
+              class="mt-4 flex-1 overflow-y-auto overscroll-contain px-4"
+            >
               <HeadlessTabPanel>
                 <MobileDetailWeather />
               </HeadlessTabPanel>
@@ -44,6 +60,7 @@
 </template>
 
 <script lang="ts" setup>
+const {t} = useI18n();
 const props = defineProps({
   title: {
     type: String,

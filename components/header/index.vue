@@ -70,7 +70,7 @@
       />
       <ShareFlexibleTextWidth
         class="font-medium"
-        :text="currentWeatherState?.[0]?.description || ''"
+        :text="t(`state.${stringToCamelCase(currentWeatherState?.[0]?.description)}`) || ''"
         :min-size="1.3"
       />
     </div>
@@ -85,6 +85,8 @@ const props = defineProps({
   },
 });
 import convertLocation from "~/composables/convert/convertLocation";
+
+const {t} =useI18n();
 
 const weatherStore = useWeatherStore();
 

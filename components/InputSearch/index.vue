@@ -9,7 +9,7 @@
       @focusout="closeDropdownWithDelay"
           type="text"
           class="w-full border-none outline-none py-2 pl-3 pr-5 text-sm leading-5 bg-neutral-500 bg-opacity-30 text-neutral-50 focus:ring-0"
-          placeholder="search location..."
+          :placeholder="t('searchLocation')"
           v-model="query"
         />
         <span
@@ -66,7 +66,7 @@
             v-if="pending"
             class="relative cursor-default select-none px-4 py-2 text-gray-700"
           >
-            loading...
+            {{ t("loading") }}
           </div>
 
           <!-- show not found search -->
@@ -74,14 +74,14 @@
             v-else-if="suggestions.length === 0 && query !== ''"
             class="relative cursor-default select-none px-4 py-2 text-gray-700"
           >
-            Nothing found.
+            {{ t("notFound") }}
           </div>
 
           <!-- show result search -->
           <ul
             v-for="suggestion in suggestions"
             :key="suggestion.lat + suggestion.lon"
-            v-else
+            v-if="query === ''"
           >
             <li
               class="relative cursor-pointer select-none py-2 px-3 text-neutral-900 rounded-md hover:bg-neutral-50"
@@ -115,6 +115,7 @@ import _ from "lodash";
 import convertLocation from "~/composables/convert/convertLocation";
 import type { SuggestionResult } from "~/composables/useSuggestLocation";
 
+const {t} = useI18n();
 const weatherStore = useWeatherStore();
 
 const {
