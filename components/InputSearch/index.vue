@@ -81,7 +81,7 @@
           <ul
             v-for="suggestion in suggestions"
             :key="suggestion.lat + suggestion.lon"
-            v-if="query === ''"
+            v-else
           >
             <li
               class="relative cursor-pointer select-none py-2 px-3 text-neutral-900 rounded-md hover:bg-neutral-50"
