@@ -58,14 +58,16 @@
 </template>
 
 <script lang="ts" setup>
-const {t} = useI18n()
+const {getCurrentWeather} = useCurrentWeather();
 
+onMounted(getCurrentWeather)
+
+const {t} = useI18n()
 //seo
 useSeoMeta({
   title: "Home",
 });
 
-useCurrentWeather();
 </script>
 
 <style></style>

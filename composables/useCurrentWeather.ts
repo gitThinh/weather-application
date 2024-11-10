@@ -19,4 +19,8 @@ export const useCurrentWeather = () => {
   watchEffect(() => {
     getCurrentWeather();
   });
+
+  return {
+    getCurrentWeather,
+  }
 };
