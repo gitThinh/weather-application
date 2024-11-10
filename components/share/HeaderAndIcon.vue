@@ -28,6 +28,6 @@ const props = defineProps({
   titleStyle: {
     type: String,
     default: "",
-  }
+  },
 });
 </script>

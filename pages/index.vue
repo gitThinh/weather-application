@@ -15,38 +15,38 @@
           <ShareHeaderAndIcon
             class="bg-white p-4 rounded-3xl gap-3"
             title-style="font-medium text-xl"
-            title="Daily Weather (3 days)"
+            :title="`${t('dailyWeather')} (3 ${t('days')})`"
             icon-name="solar:list-broken"
           >
             <ShareSliderDailyWeather :number-items="8" />
           </ShareHeaderAndIcon>
         </div>
         <div class="grid  xl:grid-cols-3 sm:grid-cols-2 gap-x-8 gap-y-4">
-          <ShareHeaderAndIcon title="Humidity" icon-name="hugeicons:humidity">
+          <ShareHeaderAndIcon :title="t('humidity')" icon-name="hugeicons:humidity">
             <WeatherHumidity />
           </ShareHeaderAndIcon>
           <ShareHeaderAndIcon
-            title="Wind (m/s)"
+            :title="`${t('wind.root')} (m/s)`"
             icon-name="hugeicons:fast-wind"
           >
             <WeatherWind />
           </ShareHeaderAndIcon>
           <ShareHeaderAndIcon
-            title="Precipitation (mm/h)"
+            :title="`${t('precipitation.root')} (mm/h)`"
             icon-name="hugeicons:cloud-little-rain"
           >
             <WeatherPrecipitation />
           </ShareHeaderAndIcon>
-          <ShareHeaderAndIcon title="Cloud" icon-name="hugeicons:cloud">
+          <ShareHeaderAndIcon :title="t('cloud.root')" icon-name="hugeicons:cloud">
             <WeatherCloud />
           </ShareHeaderAndIcon>
           <ShareHeaderAndIcon
-            title="Feels like"
+            :title="t('feelsLike')"
             icon-name="hugeicons:temperature"
           >
             <WeatherFeelLike />
           </ShareHeaderAndIcon>
-          <ShareHeaderAndIcon title="Visibility" icon-name="hugeicons:vision">
+          <ShareHeaderAndIcon :title="t('visibility.root')" icon-name="hugeicons:vision">
             <WeatherVisibility />
           </ShareHeaderAndIcon>
         </div>
@@ -58,13 +58,15 @@
 </template>
 
 <script lang="ts" setup>
+const weatherStore = useWeatherStore();
 
+onMounted(() => weatherStore.getCurrentWeather());
+const {t} = useI18n()
 //seo
 useSeoMeta({
   title: "Home",
 });
 
-useCurrentWeather();
 </script>
 
 <style></style>

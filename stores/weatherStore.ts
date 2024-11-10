@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import type { SuggestionResult } from '~/composables/useSuggestLocation';
+import { currentWeather } from '~/services/api';
 import type { weatherLocationResponse } from '~/types/weatherLocationResponse';
 
 export const useWeatherStore = defineStore('weather', {
@@ -30,10 +31,23 @@ export const useWeatherStore = defineStore('weather', {
     },
     setSelectedLocation(location: SuggestionResult) {
       this.selectedLocation = location;
+      this.getCurrentWeather(location.lat, location.lon)
     },
     setCurrentWeatherInfo(weather: weatherLocationResponse | null) {
       this.currentWeatherInfo = weather;
     },
+    async getCurrentWeather (locationLat?: number, locationLon?: number) {
+      const lat = locationLat ?? this.selectedLocation.lat;
+      const lon = locationLon ?? this.selectedLocation.lon;
+      const units = this.unit;
+      try {
+        const data = await currentWeather(lat, lon, units)
+        data && this.setCurrentWeatherInfo(data)
+      } catch (error) {
+        this.setCurrentWeatherInfo(null)
+        console.error(error);
+      }
+    }
   },
 });
 

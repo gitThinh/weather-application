@@ -1,7 +1,10 @@
 <template>
-  <div class="flex flex-col justify-between p-4 space-y-5 h-full" :class="props.class">
+  <div
+    class="flex flex-col justify-between p-4 space-y-12 h-full"
+    :class="props.class"
+  >
     <!-- control unit and choose location -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center min-h-10">
       <HeaderSwitch />
       <!-- input and show location selected -->
       <div class="flex flex-1 justify-end items-center space-x-5">
@@ -52,20 +55,17 @@
       <div class="w-1/2 flex flex-col text-center items-center space-y-6">
         <!-- time -->
         <h2 class="text-2xl mx-auto font-medium">
-          {{ timer.getDayMonth() }}
+          {{ dayMonth }}
         </h2>
-  
+
         <!-- main temp -->
         <div class="mainTemp flex items-center">
-          <h1
-            v-if="currentWeatherTemp"
-            class="text-9xl font-semibold text-info-dark"
-          >
-            {{ currentWeatherTemp }}
+          <h1 class="text-9xl font-semibold text-info-dark">
+            {{ currentWeatherTemp ? currentWeatherTemp : randomNumber }}
           </h1>
           <NuxtImg :src="getIconUnit()" class="w-14" />
         </div>
-    
+
         <!-- sunset and sunrise -->
         <div class="flex w-full justify-evenly">
           <div class="flex gap-1 items-center">
@@ -78,13 +78,24 @@
           </div>
         </div>
       </div>
-  
+
       <!-- State current weather -->
       <div class="flex flex-1 flex-col justify-center items-center gap-2">
-        <NuxtImg :src="currentWeatherIcon" class="w-2/3 max-w-xs object-contain" />
+        <NuxtImg
+          :src="currentWeatherIcon"
+          class="w-2/3 max-w-xs object-contain"
+        />
         <ShareFlexibleTextWidth
           class="font-medium"
-          :text="currentWeatherState?.[0]?.description || ''"
+          :text="
+            currentWeatherState?.[0]?.description
+              ? t(
+                  `state.${stringToCamelCase(
+                    currentWeatherState?.[0]?.description
+                  )}`
+                )
+              : t('state.clearSky')
+          "
           :min-size="1.3"
         />
       </div>
@@ -95,39 +106,50 @@
       <ShareHeaderAndIcon
         class="h-max bg-white p-4 rounded-3xl gap-3"
         title-style="font-medium text-xl"
-        title="Daily Weather (3 days)"
+        :title="`${t('dailyWeather')} (3 ${t('days')})`"
         icon-name="solar:list-broken"
       >
         <ShareSliderDailyWeather :number-items="sliderNumber" />
       </ShareHeaderAndIcon>
-      
+
       <!-- more detail weather -->
-      <div class="grid xl:grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-x-8 md:gap-4 gap-y-4">
-        <ShareHeaderAndIcon title="Humidity" icon-name="hugeicons:humidity">
+      <div
+        class="grid xl:grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-x-8 md:gap-4 gap-y-4"
+      >
+        <ShareHeaderAndIcon
+          :title="t('humidity')"
+          icon-name="hugeicons:humidity"
+        >
           <WeatherHumidity />
         </ShareHeaderAndIcon>
         <ShareHeaderAndIcon
-          title="Wind (m/s)"
+          :title="`${t('wind.root')} (m/s)`"
           icon-name="hugeicons:fast-wind"
         >
           <WeatherWind />
         </ShareHeaderAndIcon>
         <ShareHeaderAndIcon
-          title="Precipitation (mm/h)"
+          :title="`${t('precipitation.root')} (mm/h)`"
           icon-name="hugeicons:cloud-little-rain"
         >
           <WeatherPrecipitation />
         </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon title="Cloud" icon-name="hugeicons:cloud">
+        <ShareHeaderAndIcon
+          :title="t('cloud.root')"
+          icon-name="hugeicons:cloud"
+        >
           <WeatherCloud />
         </ShareHeaderAndIcon>
         <ShareHeaderAndIcon
-          title="Feels like"
+          :title="t('feelsLike')"
           icon-name="hugeicons:temperature"
         >
           <WeatherFeelLike />
         </ShareHeaderAndIcon>
-        <ShareHeaderAndIcon title="Visibility" icon-name="hugeicons:vision">
+        <ShareHeaderAndIcon
+          :title="t('visibility.root')"
+          icon-name="hugeicons:vision"
+        >
           <WeatherVisibility />
         </ShareHeaderAndIcon>
       </div>
@@ -136,6 +158,7 @@
 </template>
 
 <script lang="ts" setup>
+const { t } = useI18n();
 const props = defineProps({
   class: {
     type: String,
@@ -174,6 +197,7 @@ const getCurrentWeatherIcon = () => {
 };
 
 // computed base
+const randomNumber = randomNumberPerTime(0, 100, 100);
 const timer = convertSecondToDate();
 const currentWeatherState = computed(
   () => weatherStore.currentWeatherInfo?.weather
@@ -183,6 +207,10 @@ const currentWeatherMain = computed(
 );
 
 // computed variable
+const dayMonth = computed(
+  () =>
+    `${t(`day.${timer.dayOfWeek}`)}, ${timer.day} ${t(`month.${timer.month}`)}`
+);
 const currentWeatherIcon = computed(getCurrentWeatherIcon);
 const currentWeatherTemp = computed(() =>
   Math.round(currentWeatherMain?.value?.temp || 0)

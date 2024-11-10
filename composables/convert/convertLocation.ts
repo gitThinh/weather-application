@@ -1,7 +1,8 @@
 import { COUNTRY_NAME } from "~/constants/country";
+import type { SuggestionResult } from "../useSuggestLocation";
 
 const convertLocation = (
-  location: SuggestionResulf,
+  location: SuggestionResult,
   showName: boolean = true
 ) => {
   const locationName = location?.local_names?.vi ?? location?.name ?? "";
