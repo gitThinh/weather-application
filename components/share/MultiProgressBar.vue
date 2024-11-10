@@ -66,7 +66,10 @@ const getDisplayValue = (index: number) => {
   if (props.show === "status") {
     return props.ranges[index]?.status || ""; // status
   } else if (props.show === "range") {
-    if (props.ranges[props.ranges.length - 1].max !== 100 && index === props.ranges.length - 1) {
+    if (
+      props.ranges[props.ranges.length - 1].max !== 100 &&
+      index === props.ranges.length - 1
+    ) {
       return `+${props.ranges[index]?.max}`;
     }
     return props.ranges[index]?.max || "";

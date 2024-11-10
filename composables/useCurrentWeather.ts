@@ -8,19 +8,15 @@ export const useCurrentWeather = () => {
     const lon = weatherStore.selectedLocation?.lon || 108.212;
     const units = weatherStore.unit;
     try {
-      const data = await currentWeather(lat, lon, units)
+      const data = await currentWeather(lat, lon, units);
       weatherStore.setCurrentWeatherInfo(data);
     } catch (error) {
       weatherStore.setCurrentWeatherInfo(null);
       console.error(error);
     }
-  }
-
-  watchEffect(() => {
-    getCurrentWeather();
-  });
+  };
 
   return {
     getCurrentWeather,
-  }
+  };
 };

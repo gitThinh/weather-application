@@ -5,7 +5,7 @@
       <HeaderSwitch />
       <!-- time -->
       <h2 class="text-lg font-medium">
-        {{ timer.getDayMonth() }}
+        {{ dayMonth }}
       </h2>
       <div>
         <button
@@ -65,11 +65,8 @@
     <!-- State current weather -->
     <div class="flex flex-1 flex-col justify-center items-center gap-2">
       <div class="mainTemp flex items-center">
-        <h1
-          v-if="currentWeatherTemp"
-          class="text-8xl font-semibold text-info-dark"
-        >
-          {{ currentWeatherTemp }}
+        <h1 class="text-8xl font-semibold text-info-dark">
+          {{ currentWeatherTemp ? currentWeatherTemp : randomNumber }}
         </h1>
         <NuxtImg :src="getIconUnit()" class="w-14" />
       </div>
@@ -77,9 +74,13 @@
       <ShareFlexibleTextWidth
         class="font-medium"
         :text="
-          t(
-            `state.${stringToCamelCase(currentWeatherState?.[0]?.description)}`
-          ) || t('state.clearSky')
+          currentWeatherState?.[0]?.description
+            ? t(
+                `state.${stringToCamelCase(
+                  currentWeatherState?.[0]?.description
+                )}`
+              )
+            : t('state.clearSky')
         "
         :min-size="1.3"
       />
@@ -115,6 +116,7 @@ const getCurrentWeatherIcon = () => {
 };
 
 // computed base
+const randomNumber = randomNumberPerTime(0, 100, 100);
 const timer = convertSecondToDate();
 const currentWeatherState = computed(
   () => weatherStore.currentWeatherInfo?.weather
@@ -124,6 +126,10 @@ const currentWeatherMain = computed(
 );
 
 // computed variable
+const dayMonth = computed(
+  () =>
+    `${t(`day.${timer.dayOfWeek}`)}, ${timer.day} ${t(`month.${timer.month}`)}`
+);
 const currentWeatherIcon = computed(getCurrentWeatherIcon);
 const currentWeatherTemp = computed(() =>
   Math.round(currentWeatherMain?.value?.temp || 0)

@@ -20,9 +20,9 @@
 const weatherStore = useWeatherStore();
 const { handleChangeUnits } = useUnitsTemp();
 
-// computed
+// computeds
 const convertUnit = computed({
   get: () => weatherStore.unit === "metric",
-  set: handleChangeUnits
-})
+  set: handleChangeUnits,
+});
 </script>

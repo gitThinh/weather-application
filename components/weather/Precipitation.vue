@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-const {t} = useI18n();
+const { t } = useI18n();
 const weatherStore = useWeatherStore();
 
 // var
@@ -33,26 +33,23 @@ const precipitationSnowThresholds = [
 
 // computed
 const precipitationRain = computed(
-  () =>
-  weatherStore.currentWeatherInfo?.rain?.["1h"] ??
-  0
+  () => weatherStore.currentWeatherInfo?.rain?.["1h"] ?? 0
 );
 
 const precipitationSnow = computed(
-  () =>
-  weatherStore.currentWeatherInfo?.snow?.["1h"] ??
-  0
+  () => weatherStore.currentWeatherInfo?.snow?.["1h"] ?? 0
 );
 
 const precipitation = computed(
-  () =>
-  precipitationRain.value ?? precipitationSnow.value
+  () => precipitationRain.value ?? precipitationSnow.value
 );
 
 const precipitationStatus = computed(() => {
   const percent = precipitation.value;
   if (!percent || percent > 100) return t("precipitation.clear");
-  const precipitationThresholds = precipitationSnow.value ? precipitationSnowThresholds : precipitationRainThresholds
+  const precipitationThresholds = precipitationSnow.value
+    ? precipitationSnowThresholds
+    : precipitationRainThresholds;
   const threshold = precipitationThresholds.find((t) => percent <= t.max);
   return threshold ? threshold.status : t("precipitation.clear");
 });

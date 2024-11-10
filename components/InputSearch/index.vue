@@ -4,11 +4,11 @@
       <div
         class="relative w-full cursor-default overflow-hidden rounded-lg text-left border shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
       >
-      <input
-      @focusin="isOpen = true"
-      @focusout="closeDropdownWithDelay"
+        <input
+          @focusin="isOpen = true"
+          @focusout="closeDropdownWithDelay"
           type="text"
-          class="w-full border-none outline-none py-2 pl-3 pr-5 text-sm leading-5 bg-neutral-500 bg-opacity-30 text-neutral-50 focus:ring-0"
+          class="w-full border-none outline-none py-1.5 pl-3 pr-5 text-sm leading-5 bg-neutral-500 bg-opacity-30 text-neutral-50 focus:ring-0"
           :placeholder="t('searchLocation')"
           v-model="query"
         />
@@ -105,7 +105,7 @@
 </template>
 
 <script lang="ts" setup>
-const {t} = useI18n();
+const { t } = useI18n();
 const props = defineProps({
   selectLocation: {
     type: Function,

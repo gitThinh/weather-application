@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-
 const dailyWeather = useDailyWeather();
 
 // state

@@ -1,6 +1,4 @@
 const converSecondToDate = (time?: number) => {
-  const {t} = useI18n();
-
   const date = time ? new Date(time * 1000) : new Date();
   // const variable
   const daysOfWeek = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -15,27 +13,23 @@ const converSecondToDate = (time?: number) => {
 
   // day month
   const day = date.getDate().toString().padStart(2, "0");
-  const month = t(`month.${monthsOfYear[date.getMonth()]}`);
+  const month = monthsOfYear[date.getMonth()];
   const year = date.getFullYear();
-  const dayOfWeek = t(`day.${daysOfWeek[date.getDay()]}`);
+  const dayOfWeek = daysOfWeek[date.getDay()];
 
   // string type "HH:MM"
   const timeString = `${hours}:${minutes}`;
 
-  const getDayMonth = (haveYear = false) => {
-    return haveYear
-      ? `${dayOfWeek}, ${day} ${month} ${year}`
-      : `${dayOfWeek}, ${day} ${month}`;
-  };
-  
   const getDayNumber = () => {
     return `${day}/${date.getMonth()}`;
   };
 
   return {
+    day,
+    month,
+    dayOfWeek,
     date: date,
     formattedTime: timeString,
-    getDayMonth,
     getDayNumber,
   };
 };

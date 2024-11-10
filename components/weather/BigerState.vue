@@ -9,16 +9,16 @@
       <div class="space-y-2">
         <p class="font-medium text-5xl">{{ mainTemp }}&deg</p>
         <div class="space-x-3">
-            <span class="text-lg font-medium">
-              {{
-                timer.date.getHours() < 10
-                  ? `0${timer.date.getHours()}:00`
-                  : `${timer.date.getHours()}:00`
-              }}
-            </span>
-            <span>
-              {{ timer.getDayNumber() }}
-            </span>
+          <span class="text-lg font-medium">
+            {{
+              timer.date.getHours() < 10
+                ? `0${timer.date.getHours()}:00`
+                : `${timer.date.getHours()}:00`
+            }}
+          </span>
+          <span>
+            {{ timer.getDayNumber() }}
+          </span>
         </div>
       </div>
       <div class="flex w-1/2 flex-col justify-end space-y-2">
@@ -27,14 +27,16 @@
           alt=""
           class="w-2/3 max-w-40 object-contain mx-auto"
         />
-        <p class="text-lg font-medium">{{ t(`state.${stringToCamelCase(statusWeather)}`) || statusWeather }}</p>
+        <p class="text-lg font-medium">
+          {{ t(`state.${stringToCamelCase(statusWeather)}`) || statusWeather }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const {t} = useI18n();
+const { t } = useI18n();
 import type { weatherLocationResponse } from "~/types/weatherLocationResponse";
 import converSecondToDate from "~/utils/convertSecondToDate";
 

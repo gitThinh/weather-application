@@ -51,7 +51,3 @@ const computedFontSize = computed(() => {
   }
 });
 </script>
-
-<style scoped>
-/* Bạn có thể thêm các kiểu khác cho component ở đây */
-</style>
