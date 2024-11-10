@@ -52,7 +52,7 @@ const precipitation = computed(
 const precipitationStatus = computed(() => {
   const percent = precipitation.value;
   if (!percent || percent > 100) return t("precipitation.clear");
-  const precipitationThresholds = precipitationSnow ? precipitationSnowThresholds : precipitationRainThresholds
+  const precipitationThresholds = precipitationSnow.value ? precipitationSnowThresholds : precipitationRainThresholds
   const threshold = precipitationThresholds.find((t) => percent <= t.max);
   return threshold ? threshold.status : t("precipitation.clear");
 });
