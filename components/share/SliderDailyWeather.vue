@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="items.length > 0"
+    v-show="items.length > 0"
     class="overflow-hidden bg-neutral-50 rounded-3xl relative w-full"
   >
     <div
@@ -41,7 +41,7 @@
 
   <!-- loading slider -->
   <div
-    v-else
+    v-show="!haveItems"
     class="animate-pulse w-full h-48 bg-neutral-400 rounded-3xl"
   ></div>
 </template>
@@ -56,6 +56,7 @@ const dailyWeather = useDailyWeather();
 // state
 const currentIndex = ref(0);
 const items = computed(() => dailyWeather.dailyWeatherInfo.value?.list ?? []);
+const haveItems = computed(() => items.value.length > 0);
 
 const isMaxSlider = computed(
   () => currentIndex.value + 1 === items.value.length - props.numberItems
