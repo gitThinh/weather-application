@@ -60,7 +60,7 @@ export const useWeatherStore = defineStore("weather", {
         // check location with currentWeather location
         lat === this.currentWeatherInfo?.coord.lat &&
         lon === this.currentWeatherInfo?.coord.lon &&
-        // cause unit was update before call getCurrentWeather api so newunit params will be equal this.unit
+        // cause unit was update before call getCurrentWeather api so newUnit params will be equal this.unit
         units !== this.unit
       )
         return;
