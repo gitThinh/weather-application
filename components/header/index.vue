@@ -68,9 +68,10 @@
         <h1 class="text-8xl font-semibold text-info-dark">
           {{ currentWeatherTemp ? currentWeatherTemp : randomNumber }}
         </h1>
-        <NuxtImg :src="getIconUnit()" class="w-14" />
+        <NuxtImg :src="getIconUnit()" alt="temp-icon" class="w-14" />
       </div>
       <NuxtImg
+        :alt="currentWeatherIcon"
         :src="currentWeatherIcon"
         class="w-3/4 aspect-square object-contain"
       />

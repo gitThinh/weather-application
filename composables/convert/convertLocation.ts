@@ -1,5 +1,5 @@
 import { COUNTRY_NAME } from "~/constants/country";
-import type { SuggestionResult } from "../useSuggestLocation";
+import type { SuggestionResult } from "~/types/weatherLocationResponse";
 
 const convertLocation = (
   location: SuggestionResult,

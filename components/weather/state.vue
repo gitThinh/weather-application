@@ -17,7 +17,7 @@
       <div class="flex-1 w-full flex items-center justify-center">
         <NuxtImg
           :src="iconWeather"
-          alt=""
+          :alt="iconWeather"
           class="w-3/4 object-contain mx-auto"
         />
       </div>
