@@ -25,6 +25,11 @@ export const useWeatherStore = defineStore("weather", {
     currentWeatherInfo: null as weatherLocationResponse | null,
   }),
   actions: {
+    async initStore() {
+      if (!this.currentWeatherInfo) {
+        await this.getCurrentWeather();
+      }
+    },
     setUnit(newUnit: "metric" | "imperial") {
       this.unit = newUnit;
       this.getCurrentWeather(
@@ -35,7 +40,7 @@ export const useWeatherStore = defineStore("weather", {
     setSelectedLocation(location: SuggestionResult) {
       if (
         this.selectedLocation.name === location.name &&
-        location.name !== "Da Nang"
+        location?.name !== "Da Nang"
       )
         return;
       this.selectedLocation = location;
@@ -45,18 +50,18 @@ export const useWeatherStore = defineStore("weather", {
       this.currentWeatherInfo = weather;
     },
     async getCurrentWeather(locationLat?: number, locationLon?: number) {
-      if (
-        // check location with currentWeather location
-        locationLat === this.currentWeatherInfo?.coord.lat &&
-        locationLon === this.currentWeatherInfo?.coord.lon &&
-        // check not default selectLocation
-        locationLat !== 16.068 &&
-        locationLon !== 108.212
-      )
-        return;
       const lat = locationLat ?? this.selectedLocation.lat;
       const lon = locationLon ?? this.selectedLocation.lon;
       const units = this.unit;
+
+      if (
+        this.currentWeatherInfo &&
+        // check location with currentWeather location
+        lat === this.currentWeatherInfo?.coord.lat &&
+        lon === this.currentWeatherInfo?.coord.lon
+      )
+        return;
+      
       try {
         const data = await currentWeather(lat, lon, units);
         data && this.setCurrentWeatherInfo(data);

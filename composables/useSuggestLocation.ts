@@ -19,8 +19,14 @@ export const useSuggestLocation = () => {
     if (storedRecent?.length) {
       recentSelected.value = JSON.parse(storedRecent);
       // set selected location from recentSelected
-      if (recentSelected.value[0].name !== weatherStore.selectedLocation.name || recentSelected.value[0].name === "Da Nang") {
-        weatherStore.setSelectedLocation(recentSelected.value[0]);
+      if (recentSelected.value.length) {
+        if (
+          recentSelected.value?.[0]?.name !==
+            weatherStore.selectedLocation.name ||
+          recentSelected.value?.[0]?.name === "Da Nang"
+        ) {
+          weatherStore.setSelectedLocation(recentSelected.value[0]);
+        }
       }
     }
   }
@@ -32,7 +38,7 @@ export const useSuggestLocation = () => {
 
     try {
       // call api suggest location
-      const response = await suggestLocation(query)
+      const response = await suggestLocation(query);
 
       suggestions.value = response || [];
     } catch (err) {
@@ -53,7 +59,7 @@ export const useSuggestLocation = () => {
     ) {
       recentSelected.value = recentSelected.value.filter(
         (item) => item.lat !== suggestion.lat && item.lon !== suggestion.lon
-      )
+      );
       recentSelected.value.unshift(suggestion);
     } else {
       recentSelected.value.unshift(suggestion);

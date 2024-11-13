@@ -59,6 +59,12 @@
 </template>
 
 <script lang="ts" setup>
+const weatherStore = useWeatherStore();
+
+onMounted(() => {
+  weatherStore.initStore();
+});
+
 const {t} = useI18n()
 //seo
 useSeoMeta({
