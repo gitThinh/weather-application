@@ -34,7 +34,8 @@ export const useWeatherStore = defineStore("weather", {
       this.unit = newUnit;
       this.getCurrentWeather(
         this.selectedLocation.lat,
-        this.selectedLocation.lon
+        this.selectedLocation.lon,
+        newUnit,
       );
     },
     setSelectedLocation(location: SuggestionResult) {
@@ -49,16 +50,18 @@ export const useWeatherStore = defineStore("weather", {
     setCurrentWeatherInfo(weather: weatherLocationResponse | null) {
       this.currentWeatherInfo = weather;
     },
-    async getCurrentWeather(locationLat?: number, locationLon?: number) {
+    async getCurrentWeather(locationLat?: number, locationLon?: number, unit?: "metric" | "imperial") {
       const lat = locationLat ?? this.selectedLocation.lat;
       const lon = locationLon ?? this.selectedLocation.lon;
-      const units = this.unit;
+      const units = unit ?? this.unit;
 
       if (
         this.currentWeatherInfo &&
         // check location with currentWeather location
         lat === this.currentWeatherInfo?.coord.lat &&
-        lon === this.currentWeatherInfo?.coord.lon
+        lon === this.currentWeatherInfo?.coord.lon &&
+        // cause unit was update before call getCurrentWeather api so newUnit params will be equal this.unit
+        units !== this.unit
       )
         return;
       
