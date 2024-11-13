@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center gap-2">
-    <NuxtImg src="/icons/doC.png" class="w-4 object-cover" />
+    <NuxtImg src="/icons/doC.png" alt="doC" class="w-4 object-cover" />
     <HeadlessSwitch
       v-model="convertUnit"
       :class="convertUnit ? 'bg-info-dark' : 'bg-info-normal'"
@@ -12,7 +12,7 @@
         class="inline-block h-3 w-3 transform rounded-full bg-white transition"
       ></span>
     </HeadlessSwitch>
-    <NuxtImg src="/icons/doF.png" class="w-4 object-cover" />
+    <NuxtImg src="/icons/doF.png" alt="doF" class="w-4 object-cover" />
   </div>
 </template>
 
