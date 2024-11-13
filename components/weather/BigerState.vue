@@ -24,7 +24,7 @@
       <div class="flex w-1/2 flex-col justify-end space-y-2">
         <NuxtImg
           :src="iconWeather"
-          alt=""
+          :alt="iconWeather"
           class="w-2/3 max-w-40 object-contain mx-auto"
         />
         <p class="text-lg font-medium">

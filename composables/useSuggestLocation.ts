@@ -2,17 +2,7 @@ import _ from "lodash";
 import { APP_CONFIGS } from "~/config-global";
 import { ref } from "vue";
 import { suggestLocation } from "~/services/api";
-
-export interface SuggestionResult {
-  lat: number;
-  lon: number;
-  name: string;
-  country?: string;
-  state?: string;
-  local_names: {
-    [key: string]: string;
-  };
-}
+import type { SuggestionResult } from "~/types/weatherLocationResponse";
 
 export const useSuggestLocation = () => {
   const weatherStore = useWeatherStore();
@@ -24,18 +14,22 @@ export const useSuggestLocation = () => {
   const pending = ref<boolean>(false);
   const error = ref<boolean>(false);
 
-  onMounted(() => {
-    if (import.meta.client) {
-      const storedRecent = localStorage.getItem(APP_CONFIGS.recentSuggestionKey);
-      if (storedRecent?.length) {
-        recentSelected.value = JSON.parse(storedRecent);
-        // Đặt selected location từ recentSelected nếu có
-        if (recentSelected.value.length > 0) {
+  if (import.meta.client) {
+    const storedRecent = localStorage.getItem(APP_CONFIGS.recentSuggestionKey);
+    if (storedRecent?.length) {
+      recentSelected.value = JSON.parse(storedRecent);
+      // set selected location from recentSelected
+      if (recentSelected.value.length) {
+        if (
+          recentSelected.value?.[0]?.name !==
+            weatherStore.selectedLocation.name ||
+          recentSelected.value?.[0]?.name === "Da Nang"
+        ) {
           weatherStore.setSelectedLocation(recentSelected.value[0]);
         }
       }
     }
-  });
+  }
 
   // call API suggestions
   const fetchSuggestions = async (query: string) => {
@@ -44,7 +38,7 @@ export const useSuggestLocation = () => {
 
     try {
       // call api suggest location
-      const response = await suggestLocation(query)
+      const response = await suggestLocation(query);
 
       suggestions.value = response || [];
     } catch (err) {
@@ -65,7 +59,7 @@ export const useSuggestLocation = () => {
     ) {
       recentSelected.value = recentSelected.value.filter(
         (item) => item.lat !== suggestion.lat && item.lon !== suggestion.lon
-      )
+      );
       recentSelected.value.unshift(suggestion);
     } else {
       recentSelected.value.unshift(suggestion);

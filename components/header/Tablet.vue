@@ -63,7 +63,7 @@
           <h1 class="text-9xl font-semibold text-info-dark">
             {{ currentWeatherTemp ? currentWeatherTemp : randomNumber }}
           </h1>
-          <NuxtImg :src="getIconUnit()" class="w-14" />
+          <NuxtImg :src="getIconUnit()" alt="temp-icon" class="w-14" />
         </div>
 
         <!-- sunset and sunrise -->
@@ -83,6 +83,7 @@
       <div class="flex flex-1 flex-col justify-center items-center gap-2">
         <NuxtImg
           :src="currentWeatherIcon"
+          :alt="currentWeatherIcon"
           class="w-2/3 max-w-xs object-contain"
         />
         <ShareFlexibleTextWidth

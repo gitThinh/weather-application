@@ -1,10 +1,10 @@
 <template>
   <div class="space-y-3">
     <div class="mainTemp flex items-center justify-center">
-      <h3 class="text-4xl font-semibold text-info-dark">
+      <h1 class="text-4xl font-semibold text-info-dark">
         {{ feelLike ? feelLike : randomNumber }}
-      </h3>
-      <NuxtImg :src="getIconUnit()" class="w-7" />
+      </h1>
+      <NuxtImg :src="getIconUnit()" alt="temp-icon" class="w-7" />
     </div>
     <div class="flex justify-around">
       <div class="flex items-center justify-center">
@@ -14,7 +14,7 @@
             maxTemp ? maxTemp : randomNumber
           }}</span>
         </p>
-        <NuxtImg :src="getIconUnit()" class="w-3" />
+        <NuxtImg :src="getIconUnit()" alt="temp-icon" class="w-3" />
       </div>
       <div class="flex items-center justify-center">
         <p class="font-medium text-lg">
@@ -23,7 +23,7 @@
             minTemp ? minTemp : randomNumber
           }}</span>
         </p>
-        <NuxtImg :src="getIconUnit()" class="w-3" />
+        <NuxtImg :src="getIconUnit()" alt="temp-icon" class="w-3" />
       </div>
     </div>
   </div>

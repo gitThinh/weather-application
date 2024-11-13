@@ -114,7 +114,7 @@ const props = defineProps({
 });
 import _ from "lodash";
 import convertLocation from "~/composables/convert/convertLocation";
-import type { SuggestionResult } from "~/composables/useSuggestLocation";
+import type { SuggestionResult } from "~/types/weatherLocationResponse";
 
 const weatherStore = useWeatherStore();
 

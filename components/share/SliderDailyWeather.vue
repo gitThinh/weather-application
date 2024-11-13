@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="items.length > 0"
+    v-if="haveItems"
     class="overflow-hidden bg-neutral-50 rounded-3xl relative w-full"
   >
     <div
