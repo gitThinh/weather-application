@@ -68,7 +68,7 @@ onMounted(() => {
 const {t} = useI18n()
 //seo
 useSeoMeta({
-  title: "Home",
+  title: "Weather application",
 });
 
 // default is desktop width
