@@ -41,7 +41,7 @@
 
   <!-- loading slider -->
   <div
-    v-else
+    v-show="!haveItems"
     class="animate-pulse w-full h-48 bg-neutral-400 rounded-3xl"
   ></div>
 </template>
