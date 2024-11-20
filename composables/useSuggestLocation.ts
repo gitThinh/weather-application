@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { APP_CONFIGS } from "~/config-global";
 import { ref } from "vue";
 import { suggestLocation } from "~/services/api";

@@ -112,7 +112,7 @@ const props = defineProps({
     required: false,
   },
 });
-import _ from "lodash";
+import { debounce } from "lodash";
 import convertLocation from "~/composables/convert/convertLocation";
 import type { SuggestionResult } from "~/types/weatherLocationResponse";
 
@@ -138,7 +138,7 @@ const handleSelectedLocation = (item: SuggestionResult) => {
   saveRecentSuggestion(item);
 };
 
-const debouncedFetchSuggestions = _.debounce(() => {
+const debouncedFetchSuggestions = debounce(() => {
   if (query.value) {
     fetchSuggestions(query.value);
   } else {
