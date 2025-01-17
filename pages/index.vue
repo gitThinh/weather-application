@@ -1,8 +1,7 @@
 <template>
   <NuxtLayout name="default-layout">
     <div
-      v-if="isDesktop"
-      class="hidden lg:grid w-full min-h-screen grid-cols-12 container overflow-hidden mx-auto"
+      class="hidden lg:grid w-full min-h-dvh grid-cols-12 container overflow-hidden mx-auto"
     >
       <!-- sidebar -->
       <Header class="col-span-3 bg-info-light rounded-2xl mr-1"></Header>
@@ -53,8 +52,8 @@
         </div>
       </div>
     </div>
-    <MobileMainMobile v-if="isMobile"/>
-    <TabletMainTablet v-if="isTablet"/>
+    <MobileMainMobile />
+    <TabletMainTablet />
   </NuxtLayout>
 </template>
 
@@ -70,24 +69,4 @@ const {t} = useI18n()
 useSeoMeta({
   title: "Weather application",
 });
-
-// default is desktop width
-const windowWidth = ref(1024);
-
-const updateWidth = () => {
-  windowWidth.value = window.innerWidth;
-};
-
-onMounted(() => {
-  window.addEventListener('resize', updateWidth);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateWidth);
-});
-
-const isMobile = computed(() => windowWidth.value < 640);
-const isTablet = computed(() => windowWidth.value >= 640 && windowWidth.value < 1024);
-const isDesktop = computed(() => windowWidth.value >= 1024);
-
 </script>

@@ -23,7 +23,7 @@
               <HeadlessTab as="template" v-slot="{ selected }">
                 <p
                   :class="{
-                    'font-medium cursor-default bottom_shadow': selected,
+                    'font-medium cursor-default': selected,
                     'cursor-pointer': !selected,
                   }"
                 >
@@ -33,7 +33,7 @@
               <HeadlessTab as="template" v-slot="{ selected }">
                 <p
                   :class="{
-                    'font-medium cursor-default bottom_shadow': selected,
+                    'font-medium cursor-default': selected,
                     'cursor-pointer': !selected,
                   }"
                 >
