@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:hidden w-full min-h-dvh">
+  <div class="sm:hidden w-full h-dvh">
     <HeaderMobile />
   </div>
 </template>
