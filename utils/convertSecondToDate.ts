@@ -21,7 +21,7 @@ const converSecondToDate = (time?: number) => {
   const timeString = `${hours}:${minutes}`;
 
   const getDayNumber = () => {
-    return `${day}/${date.getMonth()}`;
+    return `${day}/${date.getMonth() + 1}`;
   };
 
   return {
